@@ -1,9 +1,10 @@
 import app from './app';
-const port = 5000;
+import config from './app/config';
+
 
 async function main() {
-    app.listen(port, () => {
-        console.log(`Server is listening on port ${port}`);
+    app.listen(config.port, () => {
+        console.log(`Server is listening on port ${config.port || 5000}`);
     });
 }
 
