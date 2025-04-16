@@ -1,4 +1,4 @@
-import prisma from "../../../helpers/prsma"
+import prisma from "../../../helpers/prisma"
 import { ICustomer } from "./customer.interface"
 
 

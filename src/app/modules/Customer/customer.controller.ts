@@ -7,7 +7,7 @@ const createCustomer = catchAsync(async (req, res) => {
     const customerData = req.body
     const result = await CustomerServices.createCustomer(customerData);
     sendResponse(res, {
-        statusCode: httpStatus.OK,
+        statusCode: httpStatus.CREATED,
         success: true,
         message: "Admin fetched successfully",
         data: result
