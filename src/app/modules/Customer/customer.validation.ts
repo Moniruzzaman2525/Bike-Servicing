@@ -21,6 +21,9 @@ const create = z.object({
 const update = z.object({
     body: z.object({
         name: z.string().optional(),
+        email: z.string().email({
+            message: 'Please provide a valid email address',
+        }).optional(),
         phone: z.string().optional(),
     }),
 });
