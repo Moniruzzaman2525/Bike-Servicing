@@ -18,8 +18,12 @@ const createCustomer = async (payload: ICustomer) => {
     return result
 }
 
-
+const getAllCustomer = async () => {
+    const result = await prisma.customer.findMany()
+    return result
+}
 
 export const CustomerServices = {
-    createCustomer
+    createCustomer,
+    getAllCustomer
 }
