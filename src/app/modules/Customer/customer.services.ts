@@ -49,6 +49,8 @@ const updateCustomer = async (customerId: string, payload: ICustomer) => {
     return result
 }
 
+
+
 export const CustomerServices = {
     createCustomer,
     getAllCustomer,

@@ -6,9 +6,12 @@ const handleDuplicateError = (err: any) => {
         ? `${extractedField} already exists`
         : 'Duplicate value exists in the database';
 
+    const capitalizedMessage = errorMessage.charAt(0).toUpperCase() + errorMessage.slice(1);
+
     const statusCode = 400;
 
-    return { statusCode, message: errorMessage };
+    return { statusCode, message: capitalizedMessage };
 };
 
 export default handleDuplicateError;
+
