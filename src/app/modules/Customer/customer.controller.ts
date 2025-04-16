@@ -5,7 +5,6 @@ const createCustomer = async () => {
 }
 
 
-
-export const CustomerServices = {
+export const CustomerController = {
     createCustomer
 }
