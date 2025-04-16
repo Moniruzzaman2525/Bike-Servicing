@@ -21,21 +21,25 @@ model Customer {
   phone      String
   createAt   DateTime @default(now())
   bike       Bike[]
+
+  @@map("customer")
 }
 
 // bike model
 model Bike {
-  bikeId         String           @id @default(uuid())
+  bikeId         String          @id @default(uuid())
   brand          String
   model          String
   year           Int
   customerId     String
-  customer       Customer         @relation(fields: [customerId], references: [customerId])
-  ServicesRecord ServicesRecord[]
+  customer       Customer        @relation(fields: [customerId], references: [customerId])
+  ServicesRecord ServiceRecord[]
+
+  @@map("bike")
 }
 
 // service record model
-model ServicesRecord {
+model ServiceRecord {
   serviceId      String    @id @default(uuid())
   bikeId         String
   serviceDate    DateTime
@@ -43,4 +47,6 @@ model ServicesRecord {
   description    String
   status         String
   bike           Bike      @relation(fields: [bikeId], references: [bikeId])
+
+  @@map("serviceRecord")
 }
