@@ -7,6 +7,6 @@ import { customerValidation } from './customer.validation';
 
 const router = express.Router();
 
-router.post('/create', validateRequest(customerValidation.create), CustomerController.createCustomer)
+router.post('/', validateRequest(customerValidation.create), CustomerController.createCustomer)
 
 export const CustomerRoutes = router
