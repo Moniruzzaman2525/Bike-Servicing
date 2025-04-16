@@ -13,6 +13,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// customer model
 model Customer {
   customerId String   @id @default(uuid())
   name       String
@@ -22,11 +23,24 @@ model Customer {
   bike       Bike[]
 }
 
+// bike model
 model Bike {
-  bikeId     String   @id @default(uuid())
-  brand      String
-  model      String
-  year       Int
-  customerId String
-  customer Customer @relation(fields: [customerId], references: [customerId])
+  bikeId         String           @id @default(uuid())
+  brand          String
+  model          String
+  year           Int
+  customerId     String
+  customer       Customer         @relation(fields: [customerId], references: [customerId])
+  ServicesRecord ServicesRecord[]
+}
+
+// service record model
+model ServicesRecord {
+  serviceId      String    @id @default(uuid())
+  bikeId         String
+  serviceDate    DateTime
+  completionDate DateTime?
+  description    String
+  status         String
+  bike           Bike      @relation(fields: [bikeId], references: [bikeId])
 }
