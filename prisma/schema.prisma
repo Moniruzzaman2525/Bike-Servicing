@@ -20,6 +20,7 @@ model Customer {
   email      String   @unique
   phone      String
   createAt   DateTime @default(now())
+  updatedAt          DateTime   @updatedAt
   bike       Bike[]
 
   @@map("customer")
@@ -33,6 +34,8 @@ model Bike {
   year           Int
   customerId     String
   customer       Customer        @relation(fields: [customerId], references: [customerId])
+  createAt   DateTime @default(now())
+  updatedAt          DateTime   @updatedAt
   ServicesRecord ServiceRecord[]
 
   @@map("bike")
@@ -46,6 +49,8 @@ model ServiceRecord {
   completionDate DateTime?
   description    String
   status         ServiceStatus
+  createAt   DateTime @default(now())
+  updatedAt          DateTime   @updatedAt
   bike           Bike          @relation(fields: [bikeId], references: [bikeId])
 
   @@map("serviceRecord")

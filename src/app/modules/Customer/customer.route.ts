@@ -8,5 +8,6 @@ import { customerValidation } from './customer.validation';
 const router = express.Router();
 
 router.post('/', validateRequest(customerValidation.create), CustomerController.createCustomer)
+router.get('/', CustomerController.getAllCustomer)
 
 export const CustomerRoutes = router

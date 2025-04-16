@@ -1,3 +1,6 @@
+-- CreateEnum
+CREATE TYPE "ServiceStatus" AS ENUM ('IN_PROGRESS', 'PENDING', 'DONE');
+
 -- CreateTable
 CREATE TABLE "customer" (
     "customerId" TEXT NOT NULL,
@@ -5,6 +8,7 @@ CREATE TABLE "customer" (
     "email" TEXT NOT NULL,
     "phone" TEXT NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "customer_pkey" PRIMARY KEY ("customerId")
 );
@@ -16,6 +20,8 @@ CREATE TABLE "bike" (
     "model" TEXT NOT NULL,
     "year" INTEGER NOT NULL,
     "customerId" TEXT NOT NULL,
+    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "bike_pkey" PRIMARY KEY ("bikeId")
 );
@@ -27,7 +33,9 @@ CREATE TABLE "serviceRecord" (
     "serviceDate" TIMESTAMP(3) NOT NULL,
     "completionDate" TIMESTAMP(3),
     "description" TEXT NOT NULL,
-    "status" TEXT NOT NULL,
+    "status" "ServiceStatus" NOT NULL,
+    "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
 
     CONSTRAINT "serviceRecord_pkey" PRIMARY KEY ("serviceId")
 );
