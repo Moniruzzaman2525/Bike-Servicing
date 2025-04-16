@@ -1,7 +1,20 @@
+import prisma from "../../../helpers/prsma"
+import { ICustomer } from "./customer.interface"
 
 
-const createCustomer = async () => {
+const createCustomer = async (payload: ICustomer) => {
 
+    await prisma.customer.findUniqueOrThrow({
+        where: {
+            email: payload.email
+        }
+    })
+
+    const result = await prisma.customer.create({
+        data: payload
+    })
+
+    return result
 }
 
 
