@@ -33,6 +33,13 @@ const getCustomerById = async (customerId: string) => {
 }
 
 const updateCustomer = async (customerId: string, payload: ICustomer) => {
+
+    await prisma.customer.findUniqueOrThrow({
+        where: {
+            customerId
+        }
+    })
+
     const result = await prisma.customer.update({
         where: {
             customerId

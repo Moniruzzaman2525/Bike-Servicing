@@ -1,11 +1,9 @@
-
 const handleValidationError = (err: any) => {
-    const error = Object.values(err.errors).map((val: any) => ({
-        path: val?.path,
-        message: val?.message,
-    }));
+    const message = err.errors.length > 0 ? err.errors[0].message : 'Validation error';
+
     const statusCode = 400;
-    return { statusCode, message: 'Validation error', error };
+
+    return { statusCode, message };
 };
 
 export default handleValidationError;

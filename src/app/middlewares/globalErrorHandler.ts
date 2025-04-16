@@ -1,6 +1,4 @@
-
 import { Request, Response, NextFunction } from 'express';
-
 import { ZodError } from 'zod';
 import handleZodError from '../error/handleZodError';
 import handleValidationError from '../error/handleValidationError';
@@ -10,62 +8,47 @@ import AppError from '../error/AppError';
 import config from '../config';
 import { Prisma } from '@prisma/client';
 import handleNotFoundError from '../error/handleNotFoundError';
+
 const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    let statusCode = 500;
+    let status = 500;
     let message = 'Something went wrong';
-    let error = [{ path: '', message: 'Something went wrong' }];
+    let stack = config.NODE_ENV === 'development' ? err.stack : undefined;
 
     if (err instanceof ZodError) {
         const simplifiedError = handleZodError(err);
-        statusCode = simplifiedError.statusCode;
+        status = simplifiedError.statusCode;
         message = simplifiedError.message;
-        error = simplifiedError.error;
     }
-
     else if (err?.name === 'ValidationError') {
         const simplifiedError = handleValidationError(err);
-        statusCode = simplifiedError.statusCode;
+        status = simplifiedError.statusCode;
         message = simplifiedError.message;
-        error = simplifiedError.error;
     }
-
     else if (err?.name === 'CastError') {
         const simplifiedError = handleCastError(err);
-        statusCode = simplifiedError.statusCode;
+        status = simplifiedError.statusCode;
         message = simplifiedError.message;
-        error = simplifiedError.error;
     }
-
     else if (err?.code === 'P2002') {
         const simplifiedError = handleDuplicateError(err);
-        statusCode = simplifiedError.statusCode;
+        status = simplifiedError.statusCode;
         message = simplifiedError.message;
-        error = simplifiedError.error;
     }
-    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+    else if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
         const simplifiedError = handleNotFoundError(err);
-        statusCode = simplifiedError.statusCode;
+        status = simplifiedError.statusCode;
         message = simplifiedError.message;
-        error = simplifiedError.error;
     }
-
     else if (err instanceof AppError) {
-        statusCode = err.statusCode;
+        status = err.statusCode;
         message = err.message;
-        error = [{ path: '', message: err.message }];
     }
 
-    else if (err instanceof Error) {
-        message = err.message;
-        error = [{ path: '', message: err.message }];
-    }
-
-    res.status(statusCode).json({
+    res.status(status).json({
         success: false,
+        status: status,
         message,
-        statusCode,
-        error,
-        stack: config.NODE_ENV === 'development' ? err.stack : null,
+        stack,
     });
 };
 

@@ -11,7 +11,7 @@ export const handleNotFoundError = (err: Prisma.PrismaClientKnownRequestError) =
     }];
 
     const statusCode = 404;
-    return { statusCode, message: `${modelName} not found`, error };
+    return { statusCode, message: `This ${modelName} not found`, error };
 };
 
 export default handleNotFoundError;
