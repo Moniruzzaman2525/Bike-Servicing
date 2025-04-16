@@ -1,4 +1,3 @@
-
 const handleDuplicateError = (err: any) => {
 
     const extractedField = err?.meta?.target?.[0];
@@ -7,13 +6,9 @@ const handleDuplicateError = (err: any) => {
         ? `${extractedField} already exists`
         : 'Duplicate value exists in the database';
 
-    const error = [{
-        path: extractedField || 'Unknown',
-        message: errorMessage,
-    }];
-
     const statusCode = 400;
-    return { statusCode, message: 'Duplicate value error', error };
+
+    return { statusCode, message: errorMessage };
 };
 
 export default handleDuplicateError;
