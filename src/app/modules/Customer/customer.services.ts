@@ -49,11 +49,26 @@ const updateCustomer = async (customerId: string, payload: ICustomer) => {
     return result
 }
 
+const deleteCustomer = async (customerId: string) => {
 
+    await prisma.customer.findUniqueOrThrow({
+        where: {
+            customerId
+        }
+    })
+
+    const result = await prisma.customer.delete({
+        where: {
+            customerId
+        }
+    })
+    return result
+}
 
 export const CustomerServices = {
     createCustomer,
     getAllCustomer,
     getCustomerById,
-    updateCustomer
+    updateCustomer,
+    deleteCustomer
 }
