@@ -19,4 +19,14 @@ model Customer {
   email      String   @unique
   phone      String
   createAt   DateTime @default(now())
+  bike       Bike[]
+}
+
+model Bike {
+  bikeId     String   @id @default(uuid())
+  brand      String
+  model      String
+  year       Int
+  customerId String
+  customer Customer @relation(fields: [customerId], references: [customerId])
 }
