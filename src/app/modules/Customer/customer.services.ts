@@ -28,12 +28,23 @@ const getCustomerById = async (customerId: string) => {
             customerId
         }
     })
-    console.log(result)
+
+    return result
+}
+
+const updateCustomer = async (customerId: string, payload: ICustomer) => {
+    const result = await prisma.customer.update({
+        where: {
+            customerId
+        },
+        data: payload
+    })
     return result
 }
 
 export const CustomerServices = {
     createCustomer,
     getAllCustomer,
-    getCustomerById
+    getCustomerById,
+    updateCustomer
 }
