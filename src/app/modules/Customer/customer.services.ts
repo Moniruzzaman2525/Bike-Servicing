@@ -1,6 +1,5 @@
 
 import prisma from "../../../helpers/prisma"
-import { badRequestError } from "../../../utils/errorUtils";
 import { ICustomer } from "./customer.interface"
 
 
@@ -23,12 +22,13 @@ const getAllCustomer = async () => {
     return result
 }
 
-const getCustomerById = async (id: string) => {
-    const result = await prisma.customer.findUnique({
+const getCustomerById = async (customerId: string) => {
+    const result = await prisma.customer.findUniqueOrThrow({
         where: {
-            customerId: id
+            customerId
         }
     })
+    console.log(result)
     return result
 }
 

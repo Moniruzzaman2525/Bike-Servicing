@@ -1,4 +1,4 @@
-// src/utils/globalErrorHandler.ts
+
 import { Request, Response, NextFunction } from 'express';
 
 import { ZodError } from 'zod';
@@ -8,7 +8,8 @@ import handleCastError from '../error/handleCastError';
 import handleDuplicateError from '../error/handleDuplicateError';
 import AppError from '../error/AppError';
 import config from '../config';
-
+import { Prisma } from '@prisma/client';
+import handleNotFoundError from '../error/handleNotFoundError';
 const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
     let statusCode = 500;
     let message = 'Something went wrong';
@@ -19,26 +20,42 @@ const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFun
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         error = simplifiedError.error;
-    } else if (err?.name === 'ValidationError') {
+    }
+
+    else if (err?.name === 'ValidationError') {
         const simplifiedError = handleValidationError(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         error = simplifiedError.error;
-    } else if (err?.name === 'CastError') {
+    }
+
+    else if (err?.name === 'CastError') {
         const simplifiedError = handleCastError(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         error = simplifiedError.error;
-    } else if (err?.code === 'P2002') {  // Prisma duplicate key error
+    }
+
+    else if (err?.code === 'P2002') {
         const simplifiedError = handleDuplicateError(err);
         statusCode = simplifiedError.statusCode;
         message = simplifiedError.message;
         error = simplifiedError.error;
-    } else if (err instanceof AppError) {
+    }
+    if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2025') {
+        const simplifiedError = handleNotFoundError(err);
+        statusCode = simplifiedError.statusCode;
+        message = simplifiedError.message;
+        error = simplifiedError.error;
+    }
+
+    else if (err instanceof AppError) {
         statusCode = err.statusCode;
         message = err.message;
         error = [{ path: '', message: err.message }];
-    } else if (err instanceof Error) {
+    }
+
+    else if (err instanceof Error) {
         message = err.message;
         error = [{ path: '', message: err.message }];
     }

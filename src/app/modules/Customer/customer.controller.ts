@@ -17,7 +17,7 @@ const createCustomer = catchAsync(async (req, res) => {
 const getAllCustomer = catchAsync(async (req, res) => {
     const result = await CustomerServices.getAllCustomer();
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         success: true,
         message: "Customers fetched successfully",
         data: result
@@ -27,7 +27,7 @@ const getAllCustomer = catchAsync(async (req, res) => {
 const getCustomerById = catchAsync(async (req, res) => {
     const result = await CustomerServices.getCustomerById(req.params.id);
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         success: true,
         message: "Customer fetched successfully",
         data: result
