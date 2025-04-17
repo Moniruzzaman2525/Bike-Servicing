@@ -22,7 +22,17 @@ const getAllBikes = async () => {
     return result
 }
 
+const getBikeById = async (bikeId: string) => {
+    const result = await prisma.bike.findUniqueOrThrow({
+        where: {
+            bikeId
+        }
+    })
+    return result
+}
+
 export const BikeServices = {
     addANewBike,
-    getAllBikes
+    getAllBikes,
+    getBikeById
 }
