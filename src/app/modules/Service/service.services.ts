@@ -1,3 +1,4 @@
+import { ServiceStatus } from "@prisma/client"
 import prisma from "../../../helpers/prisma"
 import { IService } from "./service.interface"
 
@@ -31,8 +32,23 @@ const getServicesById = async (serviceId: string) => {
     return result
 }
 
+
+const markServiceAsCompleted = async (serviceId: string, payload: string) => {
+    const result = await prisma.serviceRecord.update({
+        where: {
+            serviceId
+        },
+        data: {
+            status: ServiceStatus.DONE,
+            completionDate: new Date(payload)
+        }
+    })
+    return result
+}
+
 export const ServiceServices = {
     createAServices,
     getAllServices,
-    getServicesById
+    getServicesById,
+    markServiceAsCompleted
 }
