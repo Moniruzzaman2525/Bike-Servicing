@@ -53,9 +53,25 @@ const markServiceAsCompleted = async (serviceId: string, payload: string) => {
     return result
 }
 
+
+const endingOrOverdueServices = async () => {
+    const result = await prisma.serviceRecord.findMany({
+        where: {
+            status: ServiceStatus.PENDING || ServiceStatus.IN_PROGRESS,
+            serviceDate: {
+                lte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
+            }
+        }
+    })
+
+    return result
+}
+
+
 export const ServiceServices = {
     createAServices,
     getAllServices,
     getServicesById,
-    markServiceAsCompleted
+    markServiceAsCompleted,
+    endingOrOverdueServices
 }

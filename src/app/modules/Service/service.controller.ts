@@ -45,9 +45,20 @@ const markServiceAsCompleted = catchAsync(async (req, res) => {
     })
 })
 
+const endingOrOverdueServices = catchAsync(async (req, res) => {
+    const result = await ServiceServices.endingOrOverdueServices()
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service records fetched successfully",
+        data: result
+    })
+})
+
 export const ServiceController = {
     createService,
     getAllServices,
     getServicesById,
-    markServiceAsCompleted
+    markServiceAsCompleted,
+    endingOrOverdueServices
 }
