@@ -1,4 +1,5 @@
 import { ZodError } from 'zod';
+import httpStatus from 'http-status';
 
 const handleZodError = (err: ZodError) => {
     const messages = err.errors.map(e => e.message);
@@ -7,8 +8,8 @@ const handleZodError = (err: ZodError) => {
         ? `${messages.slice(0, -1).join(', ')} and ${messages[messages.length - 1]}`
         : messages[0] || 'Zod validation error';
 
-    const statusCode = 400; 
-
+    const statusCode = httpStatus.BAD_REQUEST;
+    
     return { statusCode, message };
 };
 

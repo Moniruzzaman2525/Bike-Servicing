@@ -18,7 +18,7 @@ const addANewBike = catchAsync(async (req, res) => {
 const getAllBikes = catchAsync(async (req, res) => {
     const result = await BikeServices.getAllBikes()
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
         success: true,
         message: "Bikes fetched successfully",
         data: result
