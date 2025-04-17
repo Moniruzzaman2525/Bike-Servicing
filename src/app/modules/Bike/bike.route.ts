@@ -7,5 +7,6 @@ const router = express.Router()
 
 router.post('/', validateRequest(bikeValidation.bikeSchema), BikeController.addANewBike)
 router.get('/', BikeController.getAllBikes)
+router.get('/:id', BikeController.getBikeById)
 
 export const BikeRoutes = router
