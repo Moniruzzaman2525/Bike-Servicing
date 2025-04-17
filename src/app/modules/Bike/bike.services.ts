@@ -1,7 +1,8 @@
 import prisma from "../../../helpers/prisma"
+import { IBike } from "./bike.interface"
 
 
-const addANewBike = async(payload) => {
+const addANewBike = async(payload: IBike) => {
     const result = await prisma.bike.create({
         data: payload
     })
