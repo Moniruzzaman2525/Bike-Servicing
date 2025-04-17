@@ -13,11 +13,16 @@ const addANewBike = async (payload: IBike) => {
     const result = await prisma.bike.create({
         data: payload
     })
-    
+
     return result
 }
 
+const getAllBikes = async () => {
+    const result = await prisma.bike.findMany()
+    return result
+}
 
 export const BikeServices = {
-    addANewBike
+    addANewBike,
+    getAllBikes
 }

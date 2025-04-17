@@ -10,12 +10,23 @@ const addANewBike = catchAsync(async (req, res) => {
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,
-        message: "Customer created successfully",
+        message: "Bike added successfully",
+        data: result
+    })
+})
+
+const getAllBikes = catchAsync(async (req, res) => {
+    const result = await BikeServices.getAllBikes()
+    sendResponse(res, {
+        statusCode: httpStatus.CREATED,
+        success: true,
+        message: "Bikes fetched successfully",
         data: result
     })
 })
 
 
 export const BikeController = {
-    addANewBike
+    addANewBike,
+    getAllBikes
 }
