@@ -35,8 +35,19 @@ const getServicesById = catchAsync(async (req, res) => {
     })
 })
 
+const markServiceAsCompleted = catchAsync(async (req, res) => {
+    const result = await ServiceServices.markServiceAsCompleted(req.params.id, req.body.completionDate)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service marked as completed",
+        data: result
+    })
+})
+
 export const ServiceController = {
     createService,
     getAllServices,
-    getServicesById
+    getServicesById,
+    markServiceAsCompleted
 }

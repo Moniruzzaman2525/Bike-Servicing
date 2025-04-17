@@ -15,4 +15,10 @@ const create = z.object({
     }),
 });
 
-export const serviceValidation = { create };
+const update = z.object({
+    body: z.object({
+        completionDate: z.string().optional(),
+    }),
+});
+
+export const serviceValidation = { create, update };

@@ -34,6 +34,13 @@ const getServicesById = async (serviceId: string) => {
 
 
 const markServiceAsCompleted = async (serviceId: string, payload: string) => {
+
+    await prisma.serviceRecord.findUniqueOrThrow({
+        where: {
+            serviceId
+        }
+    })
+
     const result = await prisma.serviceRecord.update({
         where: {
             serviceId
