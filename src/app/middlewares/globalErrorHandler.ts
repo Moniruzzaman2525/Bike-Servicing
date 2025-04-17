@@ -10,7 +10,7 @@ import { Prisma } from '@prisma/client';
 import handleNotFoundError from '../error/handleNotFoundError';
 
 const globalErrorHandler = (err: any, req: Request, res: Response, next: NextFunction) => {
-    console.log(err)
+
     let status = 500;
     let message = 'Something went wrong';
     let stack = config.NODE_ENV === 'development' ? err.stack : undefined;

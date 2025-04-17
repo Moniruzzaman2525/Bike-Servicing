@@ -1,7 +1,8 @@
 import { ServiceStatus } from "@prisma/client"
 import prisma from "../../../helpers/prisma"
 import { IService } from "./service.interface"
-
+import AppError from "../../error/AppError"
+import httpStatus from "http-status";
 
 const createAServices = async (payload: IService) => {
 
@@ -33,7 +34,7 @@ const getServicesById = async (serviceId: string) => {
 }
 
 
-const markServiceAsCompleted = async (serviceId: string, payload: string) => {
+const markServiceAsCompleted = async (serviceId: string, payload: any) => {
 
     await prisma.serviceRecord.findUniqueOrThrow({
         where: {
@@ -41,13 +42,19 @@ const markServiceAsCompleted = async (serviceId: string, payload: string) => {
         }
     })
 
+    if (!payload.completionDate) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Completion date is required")
+
+    }
+
+
     const result = await prisma.serviceRecord.update({
         where: {
             serviceId
         },
         data: {
             status: ServiceStatus.DONE,
-            completionDate: new Date(payload)
+            completionDate: new Date(payload.completionDate)
         }
     })
     return result

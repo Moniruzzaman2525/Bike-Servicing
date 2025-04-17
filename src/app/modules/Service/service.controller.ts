@@ -36,7 +36,7 @@ const getServicesById = catchAsync(async (req, res) => {
 })
 
 const markServiceAsCompleted = catchAsync(async (req, res) => {
-    const result = await ServiceServices.markServiceAsCompleted(req.params.id, req.body.completionDate)
+    const result = await ServiceServices.markServiceAsCompleted(req.params.id, req.body)
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
