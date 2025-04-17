@@ -22,8 +22,17 @@ const getAllServices = async () => {
     return result
 }
 
+const getServicesById = async (serviceId: string) => {
+    const result = await prisma.serviceRecord.findUniqueOrThrow({
+        where: {
+            serviceId
+        }
+    })
+    return result
+}
 
 export const ServiceServices = {
     createAServices,
-    getAllServices
+    getAllServices,
+    getServicesById
 }

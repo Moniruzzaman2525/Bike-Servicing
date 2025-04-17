@@ -18,7 +18,17 @@ const createService = catchAsync(async (req, res) => {
 const getAllServices = catchAsync(async (req, res) => {
     const result = await ServiceServices.getAllServices();
     sendResponse(res, {
-        statusCode: httpStatus.CREATED,
+        statusCode: httpStatus.OK,
+        success: true,
+        message: "Service records fetched successfully",
+        data: result
+    })
+})
+
+const getServicesById = catchAsync(async (req, res) => {
+    const result = await ServiceServices.getServicesById(req.params.id)
+    sendResponse(res, {
+        statusCode: httpStatus.OK,
         success: true,
         message: "Service record fetched successfully",
         data: result
@@ -27,5 +37,6 @@ const getAllServices = catchAsync(async (req, res) => {
 
 export const ServiceController = {
     createService,
-    getAllServices
+    getAllServices,
+    getServicesById
 }
