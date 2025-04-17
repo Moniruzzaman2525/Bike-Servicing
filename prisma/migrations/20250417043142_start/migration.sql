@@ -27,7 +27,7 @@ CREATE TABLE "bike" (
 );
 
 -- CreateTable
-CREATE TABLE "serviceRecord" (
+CREATE TABLE "service" (
     "serviceId" TEXT NOT NULL,
     "bikeId" TEXT NOT NULL,
     "serviceDate" TIMESTAMP(3) NOT NULL,
@@ -37,7 +37,7 @@ CREATE TABLE "serviceRecord" (
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
-    CONSTRAINT "serviceRecord_pkey" PRIMARY KEY ("serviceId")
+    CONSTRAINT "service_pkey" PRIMARY KEY ("serviceId")
 );
 
 -- CreateIndex
@@ -47,4 +47,4 @@ CREATE UNIQUE INDEX "customer_email_key" ON "customer"("email");
 ALTER TABLE "bike" ADD CONSTRAINT "bike_customerId_fkey" FOREIGN KEY ("customerId") REFERENCES "customer"("customerId") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "serviceRecord" ADD CONSTRAINT "serviceRecord_bikeId_fkey" FOREIGN KEY ("bikeId") REFERENCES "bike"("bikeId") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "service" ADD CONSTRAINT "service_bikeId_fkey" FOREIGN KEY ("bikeId") REFERENCES "bike"("bikeId") ON DELETE RESTRICT ON UPDATE CASCADE;

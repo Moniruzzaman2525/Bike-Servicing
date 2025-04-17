@@ -36,13 +36,13 @@ model Bike {
   customer       Customer        @relation(fields: [customerId], references: [customerId])
   createAt   DateTime @default(now())
   updatedAt          DateTime   @updatedAt
-  ServicesRecord ServiceRecord[]
+  ServicesRecord Service[]
 
   @@map("bike")
 }
 
 // service record model
-model ServiceRecord {
+model Service {
   serviceId      String        @id @default(uuid())
   bikeId         String
   serviceDate    DateTime
@@ -53,7 +53,7 @@ model ServiceRecord {
   updatedAt          DateTime   @updatedAt
   bike           Bike          @relation(fields: [bikeId], references: [bikeId])
 
-  @@map("serviceRecord")
+  @@map("service")
 }
 
 enum ServiceStatus {
