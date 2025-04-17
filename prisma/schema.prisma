@@ -43,21 +43,15 @@ model Bike {
 
 // service record model
 model ServiceRecord {
-  serviceId      String        @id @default(uuid())
+  serviceId      String    @id @default(uuid())
   bikeId         String
   serviceDate    DateTime
   completionDate DateTime?
   description    String
-  status         ServiceStatus @default(PENDING)
-  createAt       DateTime      @default(now())
-  updatedAt      DateTime      @updatedAt
-  bike           Bike          @relation(fields: [bikeId], references: [bikeId])
+  status         String
+  createAt       DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  bike           Bike      @relation(fields: [bikeId], references: [bikeId])
 
   @@map("ServiceRecord")
-}
-
-enum ServiceStatus {
-  IN_PROGRESS
-  PENDING
-  DONE
 }

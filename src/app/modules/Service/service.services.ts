@@ -1,4 +1,4 @@
-import { ServiceStatus } from "@prisma/client"
+
 import prisma from "../../../helpers/prisma"
 import { IService } from "./service.interface"
 import AppError from "../../error/AppError"
@@ -53,7 +53,7 @@ const markServiceAsCompleted = async (serviceId: string, payload: any) => {
             serviceId
         },
         data: {
-            status: ServiceStatus.DONE,
+            status: 'done',
             completionDate: new Date(payload.completionDate)
         }
     })
@@ -64,15 +64,20 @@ const markServiceAsCompleted = async (serviceId: string, payload: any) => {
 const endingOrOverdueServices = async () => {
     const result = await prisma.serviceRecord.findMany({
         where: {
-            status: ServiceStatus.PENDING || ServiceStatus.IN_PROGRESS,
+            status: { in: ['pending', 'in-progress'] },
             serviceDate: {
                 lte: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000)
             }
         }
-    })
+    });
 
-    return result
+    if (result.length === 0) {
+        throw new AppError(httpStatus.BAD_REQUEST, "Pending or Overdue Services (older than 7 days) not found");
+    }
+
+    return result;
 }
+
 
 
 export const ServiceServices = {

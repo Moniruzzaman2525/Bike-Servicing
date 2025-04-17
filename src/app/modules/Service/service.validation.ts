@@ -12,12 +12,17 @@ const create = z.object({
         description: z.string({
             required_error: 'Description is required',
         }).min(1, { message: 'Description cannot be empty' }),
+        status: z.string({
+            required_error: 'Status is required',
+        })
     }),
 });
 
 const update = z.object({
     body: z.object({
-        completionDate: z.string().optional(),
+        completionDate: z.string({
+            required_error: 'Completion date is required',
+        }),
     }),
 });
 

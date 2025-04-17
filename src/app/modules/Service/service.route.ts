@@ -8,8 +8,9 @@ const router = express.Router();
 
 router.post('/', validateRequest(serviceValidation.create), ServiceController.createService)
 router.get('/', ServiceController.getAllServices)
+router.get('/status', ServiceController.endingOrOverdueServices)
 router.get('/:id', ServiceController.getServicesById)
 router.put('/:id', validateRequest(serviceValidation.update), ServiceController.markServiceAsCompleted)
-router.get('/status', ServiceController.endingOrOverdueServices)
+
 
 export const ServiceRoutes = router
