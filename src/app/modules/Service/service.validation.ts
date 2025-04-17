@@ -3,11 +3,11 @@ import { z } from "zod";
 
 const create = z.object({
     body: z.object({
-        bikeId: z.string().uuid({ message: 'Invalid bike ID format' }),
-        serviceDate: z.date({
-            message: 'Invalid service date format',
-        }).refine((date) => !isNaN(date.getTime()), {
-            message: 'Invalid date',
+        bikeId: z.string({
+            required_error: 'Bike ID is required',
+        }).uuid({ message: 'Invalid bike ID format' }),
+        serviceDate: z.string({
+            required_error: 'Service date is required',
         }),
         description: z.string({
             required_error: 'Description is required',

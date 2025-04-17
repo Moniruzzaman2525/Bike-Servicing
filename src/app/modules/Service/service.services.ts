@@ -1,9 +1,16 @@
 import prisma from "../../../helpers/prisma"
+import { IService } from "./service.interface"
 
 
-const createAServices = async (payload: any) => {
+const createAServices = async (payload: IService) => {
 
-    const result = await prisma.service.create({
+    await prisma.bike.findUniqueOrThrow({
+        where: {
+            bikeId: payload.bikeId
+        }
+    })
+
+    const result = await prisma.serviceRecord.create({
         data: payload
     })
 

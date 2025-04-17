@@ -28,21 +28,21 @@ model Customer {
 
 // bike model
 model Bike {
-  bikeId         String    @id @default(uuid())
+  bikeId         String          @id @default(uuid())
   brand          String
   model          String
   year           Int
   customerId     String
-  customer       Customer  @relation(fields: [customerId], references: [customerId])
-  createAt       DateTime  @default(now())
-  updatedAt      DateTime  @updatedAt
-  ServicesRecord Service[]
+  customer       Customer        @relation(fields: [customerId], references: [customerId])
+  createAt       DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+  ServicesRecord ServiceRecord[]
 
   @@map("bike")
 }
 
 // service record model
-model Service {
+model ServiceRecord {
   serviceId      String        @id @default(uuid())
   bikeId         String
   serviceDate    DateTime
@@ -53,7 +53,7 @@ model Service {
   updatedAt      DateTime      @updatedAt
   bike           Bike          @relation(fields: [bikeId], references: [bikeId])
 
-  @@map("service")
+  @@map("ServiceRecord")
 }
 
 enum ServiceStatus {
