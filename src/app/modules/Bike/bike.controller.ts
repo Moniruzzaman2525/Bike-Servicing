@@ -5,8 +5,8 @@ import { BikeServices } from "./bike.services";
 
 
 const addANewBike = catchAsync(async (req, res) => {
-    const customerData = req.body
-    const result = await BikeServices.addANewBike(customerData);
+    const bikeData = req.body
+    const result = await BikeServices.addANewBike(bikeData);
     sendResponse(res, {
         statusCode: httpStatus.CREATED,
         success: true,

@@ -1,13 +1,15 @@
 import { ZodError } from 'zod';
 
 const handleZodError = (err: ZodError) => {
+    const messages = err.errors.map(e => e.message);
 
-    const message = err.errors.length > 0 ? err.errors[0].message : 'Zod validation error';
+    const message = messages.length > 1
+        ? `${messages.slice(0, -1).join(', ')} and ${messages[messages.length - 1]}`
+        : messages[0] || 'Zod validation error';
 
-    const statusCode = 400;
+    const statusCode = 400; 
 
     return { statusCode, message };
 };
 
 export default handleZodError;
-
