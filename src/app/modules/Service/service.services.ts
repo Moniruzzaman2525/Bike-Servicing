@@ -17,6 +17,13 @@ const createAServices = async (payload: IService) => {
     return result
 }
 
+const getAllServices = async () => {
+    const result = await prisma.serviceRecord.findMany()
+    return result
+}
+
+
 export const ServiceServices = {
-    createAServices
+    createAServices,
+    getAllServices
 }
