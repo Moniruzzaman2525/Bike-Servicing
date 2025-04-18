@@ -40,14 +40,14 @@ const markServiceAsCompleted = async (serviceId: string, payload: any) => {
             serviceId
         }
     })
-
+    
     const result = await prisma.serviceRecord.update({
         where: {
             serviceId
         },
         data: {
             status: 'done',
-            completionDate: payload.completionDate ? new Date(payload.completionDate) : new Date()  
+            completionDate: payload?.completionDate ? new Date(payload.completionDate) : new Date()
         }
     })
     return result

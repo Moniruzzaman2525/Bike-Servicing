@@ -18,12 +18,5 @@ const create = z.object({
     }),
 });
 
-const update = z.object({
-    body: z.object({
-        completionDate: z.string({
-            required_error: 'Completion date is required',
-        }),
-    }),
-});
 
-export const serviceValidation = { create, update };
+export const serviceValidation = { create };
