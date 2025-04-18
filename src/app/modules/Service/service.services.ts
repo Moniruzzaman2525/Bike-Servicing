@@ -35,18 +35,11 @@ const getServicesById = async (serviceId: string) => {
 
 
 const markServiceAsCompleted = async (serviceId: string, payload: any) => {
-
     await prisma.serviceRecord.findUniqueOrThrow({
         where: {
             serviceId
         }
     })
-
-    if (!payload.completionDate) {
-        throw new AppError(httpStatus.BAD_REQUEST, "Completion date is required")
-
-    }
-
 
     const result = await prisma.serviceRecord.update({
         where: {
@@ -54,7 +47,7 @@ const markServiceAsCompleted = async (serviceId: string, payload: any) => {
         },
         data: {
             status: 'done',
-            completionDate: new Date(payload.completionDate)
+            completionDate: payload.completionDate ? new Date(payload.completionDate) : new Date()  
         }
     })
     return result

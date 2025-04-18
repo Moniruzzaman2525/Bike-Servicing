@@ -10,7 +10,7 @@ router.post('/', validateRequest(serviceValidation.create), ServiceController.cr
 router.get('/', ServiceController.getAllServices)
 router.get('/status', ServiceController.endingOrOverdueServices)
 router.get('/:id', ServiceController.getServicesById)
-router.put('/:id', validateRequest(serviceValidation.update), ServiceController.markServiceAsCompleted)
+router.put('/:id/complete', validateRequest(serviceValidation.update), ServiceController.markServiceAsCompleted)
 
 
 export const ServiceRoutes = router
