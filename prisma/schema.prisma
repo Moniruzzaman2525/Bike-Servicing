@@ -35,7 +35,7 @@ model Bike {
   model          String
   year           Int
   customerId     String
-  customer       Customer        @relation(fields: [customerId], references: [customerId])
+  customer       Customer        @relation(fields: [customerId], references: [customerId], onDelete: Cascade)
   createAt       DateTime        @default(now())
   updatedAt      DateTime        @updatedAt
   ServicesRecord ServiceRecord[]
@@ -53,7 +53,7 @@ model ServiceRecord {
   status         String
   createAt       DateTime  @default(now())
   updatedAt      DateTime  @updatedAt
-  bike           Bike      @relation(fields: [bikeId], references: [bikeId])
+  bike           Bike      @relation(fields: [bikeId], references: [bikeId], onDelete: Cascade)
 
   @@map("ServiceRecord")
 }

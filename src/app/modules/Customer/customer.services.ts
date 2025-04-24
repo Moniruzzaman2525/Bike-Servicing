@@ -57,6 +57,7 @@ const deleteCustomer = async (customerId: string) => {
         }
     })
 
+
     const result = await prisma.customer.delete({
         where: {
             customerId

@@ -47,6 +47,7 @@ const updateCustomer = catchAsync(async (req, res) => {
 
 const deleteCustomer = catchAsync(async (req, res) => {
     await CustomerServices.deleteCustomer(req.params.id);
+    
     sendResponse(res, {
         statusCode: httpStatus.OK,
         success: true,
